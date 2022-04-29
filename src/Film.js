@@ -33,6 +33,7 @@ function Film(id, title, isFavorite = false, watchDate = '', rating = 0) {
 
 function FilmLibrary() {
   this.list = [];
+  this.lastID = 0;
 
   this.print = () => {
     console.log("***** List of Films *****");
@@ -40,9 +41,10 @@ function FilmLibrary() {
   }
 
   this.addNewFilm = (film) => {
-    if(!this.list.some(f => f.id === film.id))
+    if(!this.list.some(f => f.id === film.id)){
+      this.lastID += 1;
       this.list.push(film);
-    else
+    }else
       throw new Error('Duplicate id');
   };
 

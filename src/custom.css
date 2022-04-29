@@ -58,3 +58,13 @@ small.watch-date {
     margin: 0 1.5rem 1.5rem 0;
     border-radius: 50%;
 }
+
+.trash-bin{
+    width: 1.2em;
+    height: 1.2em;
+   
+}
+
+.trash-bin:hover{
+    fill: #e96625;
+}

@@ -7,20 +7,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css'
 import { useState } from "react";
 import {library} from "./Film";
-import dayjs from "dayjs";
 
 function App() {
-  const [filter, setFilter] = useState('all');
+  const filters = ['All', 'Favorites', 'Best Rated', 'Seen Last Month', 'Unseen'];
+  const [filter, setFilter] = useState(filters[0]);
  
   
-
   return (
     <div className="App">
       <NavBar />
       <div className="container-fluid">
         <div className="row vheight-100">
-          <Sidebar currFilter={filter} setFilter={setFilter}/>
-          <Content films={library.list} filter={filter}/>
+          <Sidebar currFilter={filter} setFilter={setFilter} filters={filters}/>
+          <Content films={library.list} filter={filter} filters={filters}/>
+          
         </div>
       </div>
     </div>

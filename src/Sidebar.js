@@ -1,46 +1,40 @@
-import React from "react";
 import './custom.css'
-
 
 
 function Sidebar(props){
   
+  /*
+   stato per gestire il filtro attivo  
+  */
+  const handleClick = filterName => {
+    console.log(filterName);
+    props.setFilter(filterName);    
+  }
   
-  function all(){
-    props.setFilter('all');
-  }
-
-  function filterFavorite(){
-    console.log("filtering...");
-    props.setFilter('favorite');
-    //setFilms(list.filter( (f) => f.favorite == true ));
-  }
-
-  function filterBestRated(){
-    props.setFilter('bestRated');
-    //setFilms(list.filter( (f) => f.rating == 5));
-  }
-
-  function filterSeenLastMonth(){
-    props.setFilter('seenLastMonth');
-    //setFilms(list.filter( (f) => f.watchDate >= dayjs().subtract(1, 'month')));
-  }
-
-  function filterUnseen(){
-    props.setFilter('unseen');
-    //setFilms(list.filter( f => f.watchDate == ''));
-  }  
   return(
         <aside className="collapse d-md-block col-md-3 col-12 bg-light below-nav" id="left-sidebar">
           <div className="list-group list-group-flush">
-            <button id="filter-all" className="list-group-item list-group-item-action " onClick={ () => all()}>All</button>
-            <button id="filter-favorites" className="list-group-item list-group-item-action" onClick={ () => {filterFavorite()}}>Favorites</button>
-            <button id="filter-best" className="list-group-item list-group-item-action" onClick={ () => {filterBestRated()}}>Best Rated</button>
-            <button id="filter-seen-last-month"className="list-group-item list-group-item-action" onClick={ () => {filterSeenLastMonth()}}>Seen Last Month</button>
-            <button id="filter-unseen" className="list-group-item list-group-item-action" onClick={ () => filterUnseen()}>Unseen</button>
+            {
+              [0, 1, 2, 3, 4].map( i => {
+                return <Filter currActive={props.filter} name={props.filters[i]} handleClick={handleClick} key={i}/>;
+              })
+            }
           </div>
         </aside>
     );
+}
+/**
+ * La componente Filter corrisponde a una entry nel menu della sidebar per selezionare il filtro da applicare
+ * @param {*} props: filter corrisponde al filtro corrente, name corrisponde al nome del filtro 
+ * @returns una componente costituita da un Button su cui è applicato l'onClick per selezionare il filtro.
+ */
+function Filter(props){
+  return (
+    <button className={"list-group-item list-group-item-action" + (props.filter === props.name ? " active " : "") } 
+            onClick={ () => props.handleClick(props.name)}> 
+          {props.name}
+    </button>
+  );
 }
 
 export {Sidebar};
